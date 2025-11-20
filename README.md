@@ -33,12 +33,7 @@ Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France
 - **Lesion-aware**: Automatically excludes intestinal wall from fat segmentation
 - **Anisotropic processing**: Respects voxel spacing for accurate 3D growth
 
-### 🛠️ Advanced Features
-- Slice profile correction awareness
-- Hole filling with multi-directional approach
-- Distance-based filtering from centerline
-- Morphological post-processing
-- DICE score calculation for validation
+### 🛠️ Save 
 
 ---
 
