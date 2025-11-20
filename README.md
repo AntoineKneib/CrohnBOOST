@@ -1,6 +1,7 @@
 <div align="center">
 
-# CrohnBOOST ![CrohnBOOST Logo](Resources/Icons/icon_boost.png)
+# CrohnBOOST 
+![CrohnBOOST Logo](Resources/Icons/icon_boost.png)
 
 </div>
 
