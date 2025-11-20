@@ -234,11 +234,7 @@ Université de Lorraine, Nancy, France
 **Last Updated**: November 2025
 
 ---
-
 If you find CrohnBOOST useful, please consider giving it a star! ⭐
-
-[![Star History Chart](https://api.star-history.com/svg?repos=YourUsername/CrohnBOOST&type=Date)](https://star-history.com/#YourUsername/CrohnBOOST&Date)
-
 ---
 
 **Made with ❤️ for the Crohn's disease research community**
