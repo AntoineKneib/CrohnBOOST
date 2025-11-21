@@ -14,8 +14,8 @@
 CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Semi-automated intestinal wall segmentation** using centerline-guided region growing
 - **Creeping fat segmentation** guided by user-placed points
-- **Interactive refinement** with adjustment sliders
-- **Quantitative analysis** for clinical research
+- **Interactive refinement** with sensitivity/radius sliders and manual paint/erase tools 
+- **Segmentation export** for downstream quantitative analysis pipelines
 
 Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
