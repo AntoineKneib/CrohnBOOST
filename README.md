@@ -11,11 +11,11 @@ Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France
 
 ## Lesion Segmentation
 
-https://github.com/AntoineKneib/CrohnBOOST/raw/main/Resources/lesion_seg.mp4
+<video src="https://github.com/AntoineKneib/CrohnBOOST/raw/main/Resources/lesion_seg.mp4" controls width="100%"></video>
 
 ## Fat Segmentation
 
-https://github.com/AntoineKneib/CrohnBOOST/raw/main/Resources/fat_seg.mp4
+<video src="https://github.com/AntoineKneib/CrohnBOOST/raw/main/Resources/fat_seg.mp4" controls width="100%"></video>
 
 ## 📋 Overview
 
