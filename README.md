@@ -9,6 +9,7 @@
 
 Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
+![Lesion Segmentation](Resources/lesion_seg.mp4)
 
 ## 📋 Overview
 
