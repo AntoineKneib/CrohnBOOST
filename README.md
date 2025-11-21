@@ -205,7 +205,7 @@ Université de Lorraine, Nancy, France
 - **Supervisor**: [Dr. Freddy ODILLE and Dr. Valérie LAURENT]
 - **IADI Laboratory** for research support
 - **3D Slicer Community** for the amazing platform
-- **Collaborators**: 
+- **Collaborators**: Dr. Astrée LEMORE, Dr. Laurent PEYRIN-BIROULET, Dr. Gabriella HOSSU
 - Funded by: RHU I-DEAL 
 
 ---
