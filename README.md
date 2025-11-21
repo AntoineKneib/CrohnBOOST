@@ -10,7 +10,29 @@
 Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
 
+
+<table>
+<tr>
+<th>Lesion Segmentation</th>
+<th>Fat Segmentation</th>
+</tr>
+<tr>
+<td>
+
+https://github.com/user-attachments/assets/151bd105-a082-4a90-bd24-a495852087d6
+
+</td>
+<td>
+
 https://github.com/user-attachments/assets/5e8ed6a4-881c-4174-a668-15cede0e4303
+
+</td>
+</tr>
+<tr>
+<td align="center"><i>Centerline-guided automatic wall detection</i></td>
+<td align="center"><i>Seed-based region growing with lesion exclusion</i></td>
+</tr>
+</table>
 
 
 
