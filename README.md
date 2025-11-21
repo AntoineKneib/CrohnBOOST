@@ -9,7 +9,7 @@
 
 Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
-https://github.com/AntoineKneib/CrohnBOOST/blob/main/Resources/fat_seg.mp4
+<video src=https://github.com/AntoineKneib/CrohnBOOST/blob/main/Resources/fat_seg.mp4" controls width="100%"></video>
 
 ## 📋 Overview
 
