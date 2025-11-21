@@ -7,6 +7,7 @@
 
 **CrohnBOOST** (BOwel Open-source Segmentation Tool) is a 3D Slicer extension for semi-automated segmentation of intestinal lesions and creeping fat in Crohn's disease using MRI sequences.
 
+Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
 
 ## 📋 Overview
@@ -17,7 +18,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Interactive refinement** with sensitivity/radius sliders and manual paint/erase tools 
 - **Segmentation export** for downstream quantitative analysis pipelines
 
-Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
 ---
 ## ✨ Features
