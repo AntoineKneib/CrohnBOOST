@@ -19,18 +19,18 @@ Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France
 <tr>
 <td>
 
-https://github.com/user-attachments/assets/151bd105-a082-4a90-bd24-a495852087d6
+<video src="https://github.com/user-attachments/assets/151bd105-a082-4a90-bd24-a495852087d6" width="100%" controls></video>
 
 </td>
 <td>
 
-https://github.com/user-attachments/assets/5e8ed6a4-881c-4174-a668-15cede0e4303
+<video src="https://github.com/user-attachments/assets/5e8ed6a4-881c-4174-a668-15cede0e4303" width="100%" controls></video>
 
 </td>
 </tr>
 <tr>
-<td align="center"><i>Centerline-guided automatic wall detection</i></td>
-<td align="center"><i>Seed-based region growing with lesion exclusion</i></td>
+<td align="center"><em>Centerline-guided automatic wall detection and region growing</em></td>
+<td align="center"><em>Seed-based region growing with lesion exclusion</em></td>
 </tr>
 </table>
 
