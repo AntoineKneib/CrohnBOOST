@@ -206,7 +206,7 @@ Université de Lorraine, Nancy, France
 - **IADI Laboratory** for research support
 - **3D Slicer Community** for the amazing platform
 - **Collaborators**: Dr. Astrée LEMORE, Dr. Laurent PEYRIN-BIROULET, Dr. Gabriella HOSSU
-- Funded by: RHU I-DEAL 
+- Funded by: RHU i-DEAL (ANR-23 RHUS-0016) 
 
 ---
 
