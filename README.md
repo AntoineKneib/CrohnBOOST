@@ -234,5 +234,6 @@ Université de Lorraine, Nancy, France
 ---
 If you find CrohnBOOST useful, please consider giving it a star! ⭐
 ---
-
+<div align="center">
 **Made with ❤️ for the Crohn's disease research community**
+</div>
