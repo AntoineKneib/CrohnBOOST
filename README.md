@@ -133,43 +133,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ---
 
-## 🎓 Scientific Background
-
-### Algorithm Overview
-
-#### Lesion Segmentation Pipeline
-1. **Centerline sampling**: Extract equidistant points along user-drawn curve
-2. **Radial wall detection**: Cast 32 rays perpendicular to centerline
-3. **Intensity-based detection**: Gradient + threshold analysis
-4. **Region growing**: Expand from wall points with intensity constraints
-5. **Distance filtering**: Keep only voxels near centerline trajectory
-6. **Hole filling**: Multi-directional slice-by-slice + 3D filling
-7. **Morphological refinement**: Closing + component analysis
-
-#### Fat Segmentation Pipeline
-1. **Intensity profiling**: Characterize fat signal from seed points
-2. **Anisotropic growth**: Separate XY (in-plane) and Z (through-plane) expansion
-3. **Lesion masking**: Exclude intestinal wall from fat regions
-4. **Connected component filtering**: Keep largest coherent fat regions
-
----
-
-## 📖 Documentation
-
-### UI Elements Reference
-
-| Element | Description |
-|---------|-------------|
-| **inputSelector** | T1-DIXON water sequence for lesion segmentation |
-| **inputSelector2** | T1-DIXON fat sequence for fat segmentation |
-| **Radius Slider** | Estimated intestinal radius (1-20mm) |
-| **Sensitivity Slider** | Segmentation aggressiveness (0-100%) |
-| **Place Centerline** | Draw centerline through lesion |
-| **Segment** | Launch automatic lesion segmentation |
-| **Apply Segmentation** | Update with current slider values |
-| **Place Fat Points** | Mark seed points in creeping fat |
-| **Segment Fat** | Launch fat segmentation |
-
 ### Parameter Guidelines
 
 | Parameter | Typical Range | Notes |
