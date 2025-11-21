@@ -26,11 +26,11 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Centerline-based approach**: Draw a simple centerline through the lesion
 - **Automatic wall detection**: Radial sampling with intensity-based wall detection
 - **Smart region growing**: Adaptive thresholding with spatial constraints
-- **Real-time adjustment**: Interactive sliders for sensitivity and radius control
+- **Interactive adjustment**: Sensitivity and radius sliders with one-click update
 
 ### 🧈 Creeping Fat Segmentation
-- **Multi-sequence support**: Uses dedicated DIXON fat sequences
 - **Seed-based growing**: Place control points in fat regions
+- **Multi-sequence support**: Uses dedicated DIXON fat sequences
 - **Lesion-aware**: Automatically excludes intestinal wall from fat segmentation
 - **Anisotropic processing**: Respects voxel spacing for accurate 3D growth
 
@@ -67,19 +67,17 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 ## 🚀 Quick Start
 
 ### Step 1: Load Your MRI Data
-1. Load your T2-weighted MRI sequence (for lesion segmentation)
-2. Load your DIXON fat sequence (for creeping fat segmentation)
-3. Ensure both volumes are co-registered
+1. Load your MRI sequences (Ensure volumes are co-registered)
 
 ### Step 2: Segment the Intestinal Lesion
 
-1. **Select Input Volume**: Choose your T2 MRI sequence
+1. **Select Input Volume**: Choose your MRI sequence
 2. **Draw Centerline**: Click `Place Centerline` and trace through the lesion center
 3. **Adjust Parameters**:
    - `Intestinal Radius`: Estimate of bowel diameter (default: 6mm)
-   - `Sensitivity`: Control segmentation aggressiveness (0-100%)
-4. **Click `Segment`**: Automatic wall detection and segmentation
-5. **Refine**: Use the sensitivity slider and click `Apply Segmentation` to update
+   - `Sensitivity`: Control segmentation aggressiveness (0-100%, default : 50%)
+4. **Click `Segmentation`**: Automatic wall detection and segmentation
+5. **Refine**: Use the sensitivity slider and click `Apply` to update
 
 ### Step 3: Segment Creeping Fat
 
