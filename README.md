@@ -166,10 +166,10 @@ Contributions are welcome! Please:
 
 ## 🐛 Known Limitations
 
-- Requires manual centerline drawing (not fully automatic)
-- Best results with high-resolution MRI (< 1mm in-plane)
-- Fat segmentation requires DIXON or fat-saturated sequences
-- Performance depends on image quality, contrast, and user input.
+- **Manual user input required**: Not fully automatic - requires centerline drawing and seed point placement
+- **User-dependent results**: Segmentation quality depends on anatomical knowledge and careful input placement
+- **Refinement often needed**: Provides a solid starting point that may benefit from manual correction with paint/erase tools
+- **Variable performance**: Results depend on lesion complexity, image artifacts, and user expertise
 
 ---
 
