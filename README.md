@@ -202,11 +202,11 @@ Université de Lorraine, Nancy, France
 
 ## 🙏 Acknowledgments
 
-- **Supervisor**: [Freddy and team names]
+- **Supervisor**: [Dr. Freddy ODILLE and Dr. Valérie LAURENT]
 - **IADI Laboratory** for research support
 - **3D Slicer Community** for the amazing platform
-- **Collaborators**: [List key collaborators]
-- Funded by: [Grant information if applicable]
+- **Collaborators**: 
+- Funded by: RHU I-DEAL 
 
 ---
 
