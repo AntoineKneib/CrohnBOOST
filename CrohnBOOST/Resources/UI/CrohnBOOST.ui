@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>655</width>
-    <height>539</height>
+    <height>565</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -239,7 +239,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="qMRMLNodeComboBox" name="MRMLNodeComboBox">
+       <widget class="qMRMLNodeComboBox" name="modifySelector">
         <property name="nodeTypes">
          <stringlist notr="true">
           <string>vtkMRMLScalarVolumeNode</string>
@@ -269,19 +269,6 @@
     <widget class="QPushButton" name="savesegButton">
      <property name="text">
       <string>Save Segmentation</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="applyButton">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="toolTip">
-      <string>Run the algorithm.</string>
-     </property>
-     <property name="text">
-      <string>Apply</string>
      </property>
     </widget>
    </item>
