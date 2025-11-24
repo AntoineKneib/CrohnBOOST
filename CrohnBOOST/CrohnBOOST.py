@@ -151,7 +151,14 @@ class CrohnBOOSTWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
             print("inputSelector2 connected to the MRML scene.")
         else:
             print("inputSelector2 not found in the UI")
-            
+        
+        
+        if hasattr(self.ui, 'modifySelector'):
+            self.ui.modifySelector.setMRMLScene(slicer.mrmlScene)
+            print("modifySelector connected to the MRML scene.")
+        else:
+            print("modifySelector not found in the UI")
+        
         self.addObserver(slicer.mrmlScene, slicer.mrmlScene.StartCloseEvent, self.onSceneStartClose)
         self.addObserver(slicer.mrmlScene, slicer.mrmlScene.EndCloseEvent, self.onSceneEndClose)
         
@@ -186,12 +193,12 @@ class CrohnBOOSTWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
         self.initializeParameterNode()
 
     def onSliderValueChanged(self, value):
-        """Appelé à chaque changement de valeur du slider."""
+        """Called whenever the slider's value changes."""
         threshold_factor = value / 100.0
-        print(f"Facteur d'expansion ajusté à : {threshold_factor:.2f}")
+        print(f"Expansion factor set to: {threshold_factor:.2f}")
 
     def onRadiusSliderValueChanged(self, value): 
-        print(f"Rayon intestinal estimé : {value} mm")
+        print(f"Estimated intestinal radius: {value} mm")
         if hasattr(self, '_current_segment_nodes') and self._current_segment_nodes:
             self._current_segment_nodes['rayon_estime'] = value 
 
@@ -256,13 +263,13 @@ class CrohnBOOSTWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
     def onSegmentButtonClicked(self):
         inputVolume = self.ui.inputSelector.currentNode()
         if not inputVolume:
-            slicer.util.errorDisplay("Veuillez sélectionner un volume d'entrée.")
+            slicer.util.errorDisplay("Please select an input volume.")
             return
 
         # Check the volume contains data
         imageData = inputVolume.GetImageData()
         if not imageData:
-            slicer.util.errorDisplay("Le volume sélectionné ne contient pas de données.")
+            slicer.util.errorDisplay("The selected volume contains no data.")
             return
             
         # Display the volume information
@@ -277,7 +284,7 @@ class CrohnBOOSTWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
         try: 
             markupsNode = slicer.util.getNode('Centerline')
         except slicer.util.MRMLNodeNotFoundException:
-            slicer.util.errorDisplay("Tracer ligne centrale avant de segmenter")
+            slicer.util.errorDisplay("Draw the centerline before segmenting")
             return
                 
         segmentationNode = slicer.mrmlScene.AddNewNodeByClass('vtkMRMLSegmentationNode')
@@ -452,12 +459,11 @@ class CrohnBOOSTWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
             slicer.util.errorDisplay("No points have been placed. Please place points on the fat to segment first.")
             return
         
-        # Attempt to retrive the lesion segmentation
         try: 
             lesionSegNode = slicer.util.getNode('Crohn_Segmentation')
             segmentID = lesionSegNode.GetSegmentation().GetSegmentIdBySegmentName("LabelMapVolume_1")
             if not segmentID:
-                print("Attention: Pas de LabelMapVolume_1 cree dans la segmentation")
+                print("Warning: No LabelMapVolume_1 created in the segmentation")
         except slicer.util.MRMLNodeNotFoundException:
             lesionSegNode = None 
             print("No lesion segmentation found")
@@ -470,90 +476,107 @@ class CrohnBOOSTWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
             fatSegmentationNode.CreateDefaultDisplayNodes()
             fatSegmentationNode.GetDisplayNode().SetOpacity(0.5)
             fatSegmentationNode.GetDisplayNode().SetColor(1.0, 1.0, 0.0)
-            
-            # IMPORTANT : Utiliser le volume de fat pour la géométrie
-            fatSegmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(fatVolume)
-            
+            fatSegmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(fatVolume) # IMPORTANT: Use the fat volume for the geometry
             fatSegmentationNode.GetSegmentation().AddEmptySegment("Creeping_fat")
 
-        # S'assurer que la géométrie est toujours correcte
-        fatSegmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(fatVolume)
+        fatSegmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(fatVolume) # Ensure that the geometry is always correct
 
-        # Passer les deux volumes : fatVolume pour l'analyse, lesionVolume pour le masque d'exclusion
-        with slicer.util.tryWithErrorDisplay("Echec de la segmentation de la graisse", waitCursor=True): 
+        # Pass both volumes: fatVolume for the analysis, lesionVolume for the exclusion mask
+        with slicer.util.tryWithErrorDisplay("Fat segmentation failed", waitCursor=True): 
             success = self.logic.segmenterGraisse(fatVolume, lesionVolume, fatPointsNode, fatSegmentationNode, lesionSegNode)
             
             if success: 
-                slicer.util.infoDisplay("Segmentation de la graisse terminee avec succes.")
+                slicer.util.infoDisplay("Fat segmentation completed successfully.")
 
     def onPaintButtonClicked(self): 
         try:
-            # Récupération du nœud de segmentation "Crohn_Segmentation"
-            segmentationNode = slicer.util.getNode('Crohn_Segmentation')
-            if not segmentationNode:
-                slicer.util.errorDisplay("Veuillez d'abord créer une segmentation")
-                return 
+            volume = self.ui.modifySelector.currentNode()
+            if not volume:
+                slicer.util.errorDisplay("Please select a volume in modifySelector")
+                return
             
-            # Récupération de l'ID du segment "LabelMapvolume_1"
+            # Deviner la segmentation selon le nom du volume
+            if "fat" in volume.GetName().lower():
+                segmentation_name = 'Fat_Segmentation'
+                segment_name = "Creeping_fat"
+            else:
+                segmentation_name = 'Crohn_Segmentation'
+                segment_name = "Paroi_Intestinale"
+            
+            segmentationNode = slicer.util.getNode(segmentation_name)
             segmentation = segmentationNode.GetSegmentation()
-            segmentID = segmentation.GetSegmentIdBySegmentName("LabelMapvolume_1")
+            segmentID = segmentation.GetSegmentIdBySegmentName(segment_name)
+            
             if not segmentID:
-                slicer.util.errorDisplay("Le segment 'LabelMapvolume_1' n'existe pas")
-                return 
-
-            # selection du module Segment Editor
-            #slicer.util.selectModule("SegmentEditor")
-
-            # recup du widget script (Python)
+                slicer.util.errorDisplay(f"Segment '{segment_name}' not found")
+                return
+            
             segEditorWidgetPython = slicer.modules.segmenteditor.widgetRepresentation().self()
             segEditorWidgetPython.segmentationNode = segmentationNode
-            segEditorWidgetPython.masterVolumeNode = self.ui.inputSelector.currentNode()
-
-            # Définition du segment actif
+            segEditorWidgetPython.masterVolumeNode = volume
+            
             try:
                 segEditorWidgetPython.setActiveSegmentID(segmentID)
             except AttributeError:
                 segEditorWidgetPython.activeSegmentID = segmentID
-
-            # Obtenir le vrai qMRMLSegmentEditorWidget (C++) via la propriété "editor"
-            realSegmentEditorWidget = segEditorWidgetPython.editor
-            if not realSegmentEditorWidget:
-                slicer.util.errorDisplay("Impossible de récupérer le qMRMLSegmentEditorWidget sous-jacent")
-                return
             
-            # Récupération de l'effet "Paint" et activation
+            realSegmentEditorWidget = segEditorWidgetPython.editor
             paintEffect = realSegmentEditorWidget.effectByName("Paint")
-            if not paintEffect:
-                slicer.util.errorDisplay("L'effet 'Paint' n'est pas disponible")
-                return
-
             realSegmentEditorWidget.setActiveEffect(paintEffect)
-
-            # Configuration du pinceau
             paintEffect.setCommonParameter("BrushAbsoluteDiameter", "5")
             paintEffect.setCommonParameter("BrushSphere", 1)
-
-            print("Effet Paint activé avec BrushAbsoluteDiameter=5 et BrushSphere=1")
+            
+            print(f"Paint activated on: {volume.GetName()}")
         except Exception as e:
-            slicer.util.errorDisplay("Erreur lors de l'activation du pinceau : " + str(e))
+            slicer.util.errorDisplay(f"Error: {str(e)}")
 
 
     def onEraseButtonClicked(self): 
-        # Active l'outil qui permet d'effacer pour editer manuellement la segmentation
-        try : 
-            segmentationNode = slicer.util.getNode('Crohn_Segmentation') 
+        try:
+            # Récupérer le volume
+            volume = self.ui.modifySelector.currentNode()
+            if not volume:
+                slicer.util.errorDisplay("Please select a volume in modifySelector")
+                return
+            
+            # Deviner la segmentation selon le nom du volume
+            if "fat" in volume.GetName().lower():
+                segmentation_name = 'Fat_Segmentation'
+                segment_name = "Creeping_fat"
+            else:
+                segmentation_name = 'Crohn_Segmentation'
+                segment_name = "Paroi_Intestinale"
+            
+            segmentationNode = slicer.util.getNode(segmentation_name) 
             if not segmentationNode: 
-                slicer.util.errorDisplay("Veuille d'abord creer une segmentation") 
+                slicer.util.errorDisplay(f"Please create '{segmentation_name}' first") 
                 return 
             
-            slicer.util.selectModule('SegmentEditor') 
-            segmentEditorWidget = slicer.modules.segmenteditor.widgetRepresentation().self()
-            segmentEditorWidget.setSegmentationNode(segmentationNode)
-            segmentEditorWidget.setMasterVolumeNode(self.ui.inputSelector.currentNode())
-
-            segmentEditorWidget.setActiveEffectByName("Erase") 
+            # Récupérer l'ID du segment
+            segmentation = segmentationNode.GetSegmentation()
+            segmentID = segmentation.GetSegmentIdBySegmentName(segment_name)
+            
+            if not segmentID:
+                slicer.util.errorDisplay(f"Segment '{segment_name}' not found")
+                return
+            
+            segEditorWidgetPython = slicer.modules.segmenteditor.widgetRepresentation().self()
+            segEditorWidgetPython.segmentationNode = segmentationNode
+            segEditorWidgetPython.masterVolumeNode = volume
+            
+            try:
+                segEditorWidgetPython.setActiveSegmentID(segmentID)
+            except AttributeError:
+                segEditorWidgetPython.activeSegmentID = segmentID
+            
+            realSegmentEditorWidget = segEditorWidgetPython.editor
+            
+            eraseEffect = realSegmentEditorWidget.effectByName("Erase")
+            realSegmentEditorWidget.setActiveEffect(eraseEffect)
+            
+            print(f"Erase activated on: {volume.GetName()}")
         except Exception as e: 
-            slicer.util.errorDisplay(f"Erreur lors de l activation de l effaceur  : {str(e)}") 
+            slicer.util.errorDisplay(f"Error: {str(e)}")
 
 #################################################################################################################################
 #################################################################################################################################
@@ -728,7 +751,7 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         int_min = mean_int - 2.5 * std_int
         int_max = mean_int + 2.5 * std_int
         
-        print(f"Expansion locale - Intensités: {mean_int:.1f} ± {std_int:.1f}")
+        print(f"Local expansion – Intensities: {mean_int:.1f} ± {std_int:.1f}")
         
         result_mask = mask.copy()
         
@@ -761,12 +784,10 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         import slicer
         fiducialNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLMarkupsFiducialNode")
         fiducialNode.AddControlPoint(vtk.vtkVector3d(position[0], position[1], position[2]))
-        fiducialNode.SetName("Emplacement Paroi")
+        fiducialNode.SetName("Wall location")
 
         return fiducialNode
 
-    
-    
     def visualiserPointsCandidats(self, points, volumeInput):
         import numpy as np
         rasToIJK = vtk.vtkMatrix4x4()
@@ -779,10 +800,10 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             image_data = volumeInput.GetImageData()
             intensity = image_data.GetScalarComponentAsDouble(x, y, z, 0)
             intensities.append(intensity)
-        print(f"Statistiques des points candidats :")
-        print(f"- Nombre de points : {len(intensities)}")
-        print(f"- Intensité moyenne : {np.mean(intensities):.2f}")
-        print(f"- Écart-type : {np.std(intensities):.2f}")
+        print(f"Candidate point statistics:")
+        print(f"- Number of points : {len(intensities)}")
+        print(f"- Mean intensity : {np.mean(intensities):.2f}")
+        print(f"- SD {np.std(intensities):.2f}")
         print(f"- Min : {np.min(intensities):.2f}")
         print(f"- Max : {np.max(intensities):.2f}")
         return intensities
@@ -838,8 +859,8 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         radius_y_vox = int(np.ceil(expanded_radius_physique / spacing[1]))
         radius_z_vox = int(np.ceil(expanded_radius_physique / spacing[2]))
 
-        print(f"Rayon de recherche physique: {expanded_radius_physique:.2f} mm")
-        print(f"Voxel equivalent :  (x:{radius_x_vox}, y:{radius_y_vox}, z:{radius_z_vox})")
+        print(f"Physical search radius: {expanded_radius_physique:.2f} mm")
+        print(f"Equivalent voxel: (x:{radius_x_vox}, y:{radius_y_vox}, z:{radius_z_vox})")
 
         # Region growing initial
         for point_idx, (z, y, x) in enumerate(wall_ijk):
@@ -871,11 +892,11 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         mask = mask.astype(np.uint8)
 
         # Expansion locale pour capturer les zones adjacentes manquées
-        print("Expansion locale des zones adjacentes...")
+        print("Local expansion of adjacent areas…")
         mask = self.expansion_locale_adjacente(mask, volume_array, n_iterations=3)
 
         # Filtrer par distance à la centerline
-        print("Filtrage par distance à la centerline...")
+        print("Filtering by distance to the centerline…")
         mask = self.filtrer_par_distance_centerline(mask, centerline_points, volumeInput, 
                                             rayon_estime=rayon_estime, 
                                             threshold_factor=threshold_factor)
@@ -889,9 +910,7 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
 
         # Fermeture plus agressive
         mask = ndimage.binary_closing(mask, structure=struct_el_aniso, iterations=2)
-        
-        # 2. NOUVEAU: Remplissage des trous slice par slice dans chaque direction
-        print("Remplissage des trous dans le masque...")
+        print("Filling holes in the mask…")
         
         # Remplir les trous dans le plan XY (slice par slice en Z)
         for z in range(mask.shape[0]):
@@ -1006,116 +1025,92 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         # Seulement si on dispose du DICE score : Segmentation de Astrée en ref 
         import numpy as np
         
-        # Convertir le ground truth en array numpy
         ground_truth_array = slicer.util.arrayFromVolume(ground_truth)
-        # Binariser si nécessaire (au cas où ce ne sont pas des 0 et 1)
         ground_truth_array = (ground_truth_array > 0).astype(np.uint8)
         
-        # Notre segmentation est déjà binaire, mais assurons-nous
         segmentation = segmentation.astype(np.uint8)
         
-        # Calculer l'intersection
         intersection = np.sum(segmentation * ground_truth_array)
         
-        # Calculer les sommes
         sum_seg = np.sum(segmentation)
         sum_gt = np.sum(ground_truth_array)
         
-        # Calculer le DICE
         dice = (2.0 * intersection) / (sum_seg + sum_gt)
         
         return dice
 
     def mettreAJourSegmentation(self, volumeInput, centerline_points, wall_points, segmentationNode, threshold_factor, rayon_estime=6):
-        """Met à jour la segmentation avec les points existants."""
+        """Updates the segmentation with the existing points."""
         segmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(volumeInput)
 
-        # Créer la segmentation initiale
         mask = self.segmenterParRegionSimple(volumeInput, centerline_points, wall_points, segmentationNode, threshold_factor, rayon_estime)
 
         if mask is None:
             return False
         
-        print(f"Après application du masque de trajectoire: {np.sum(mask)} voxels restants")
+        print(f"After applying the trajectory mask: {np.sum(mask)} remaining voxels")
         
-        # Créer un masque qui couvre tout le volume
+        # Create a mask that covers the entire volume
         full_dims = volumeInput.GetImageData().GetDimensions()
         full_mask = np.zeros(full_dims[::-1], dtype=np.uint8)
         
-        # Obtenir les limites actuelles du masque
         mask_shape = mask.shape
         
-        # Assurez-vous que le masque peut s'insérer dans le volume complet
         z_max = min(full_mask.shape[0], mask_shape[0])
         y_max = min(full_mask.shape[1], mask_shape[1])
         x_max = min(full_mask.shape[2], mask_shape[2])
         
-        # Copier le masque actuel dans une région du masque complet
         full_mask[0:z_max, 0:y_max, 0:x_max] = mask[0:z_max, 0:y_max, 0:x_max]
         
-        # Appliquer l'expansion/contraction au masque complet
         full_mask_final = self.expanderSegmentation(full_mask, volumeInput, threshold_factor, rayon_estime)
         full_mask_final = full_mask_final.astype(np.uint8)
         
-        # Supprimer tous les segments existants
         segmentation = segmentationNode.GetSegmentation()
         while segmentation.GetNumberOfSegments() > 0:
             segmentation.RemoveSegment(segmentation.GetNthSegmentID(0))
         segmentation.AddEmptySegment("Paroi_Intestinale")
         
-        # Créer un labelmap avec les dimensions complètes du volume
         labelmapVolumeNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLLabelMapVolumeNode")
         labelmapVolumeNode.SetName("FullVolumeLabelMap")
         
-        # Mettre à jour avec notre masque complet
         slicer.util.updateVolumeFromArray(labelmapVolumeNode, full_mask_final)
-        
-        # Copier l'orientation et la géométrie du volume d'entrée
         labelmapVolumeNode.CopyOrientation(volumeInput)
-        
-        # S'assurer que le labelmap utilise les mêmes transformations que le volume
         labelmapVolumeNode.SetAndObserveTransformNodeID(volumeInput.GetTransformNodeID())
         
-        # Importer le labelmap dans la segmentation
+        segmentId = segmentation.GetSegmentIdBySegmentName("Paroi_Intestinale")
+        if not segmentId:
+            print("ERROR: Paroi_Intestinale segment not found!")
+            return False
+
         slicer.modules.segmentations.logic().ImportLabelmapToSegmentationNode(
-            labelmapVolumeNode, segmentationNode)
+            labelmapVolumeNode, segmentationNode, segmentId)
         
-        # Configurer la géométrie de référence manuellement
         segmentationNode.SetReferenceImageGeometryParameterFromVolumeNode(volumeInput)
-        
-        # Nettoyer
         slicer.mrmlScene.RemoveNode(labelmapVolumeNode)
         
-        # Configurer l'éditeur de segment à l'aide d'une autre méthode (compatible avec Slicer 5.6.2)
         try:
-            # Passer directement au module SegmentEditor
             slicer.util.selectModule("SegmentEditor")
             
-            # Obtenir le widget du SegmentEditor
             segEditorWidget = slicer.modules.segmenteditor.widgetRepresentation().self()
             if segEditorWidget:
-                # Configurer le nœud de segmentation et le volume de référence
                 segEditorWidget.setSegmentationNode(segmentationNode)
                 segEditorWidget.setMasterVolumeNode(volumeInput)
                 
-                # Obtenir l'éditeur sous-jacent
                 editor = segEditorWidget.editor
                 if editor:
-                    # Désactiver les masques et les restrictions de ROI
                     editorNode = segEditorWidget.mrmlSegmentEditorNode()
                     if editorNode:
-                        # Utiliser des valeurs numériques au lieu de constantes nommées
                         editorNode.SetMaskMode(0)  # 0 = pas de masque / édition partout
                         editorNode.SetOverwriteMode(2)  # 2 = écraser tous les segments
         except Exception as e:
-            print(f"Remarque: Configuration manuelle du SegmentEditor non essentielle: {str(e)}")
+            print(f"Note: Manual SegmentEditor configuration not essential: {str(e)}")
         
         return True
     
     def filtrer_par_distance_centerline(self, mask, centerline_points, volumeInput, rayon_estime=6, threshold_factor=0.5):
         """
-        Garde uniquement les voxels du masque qui sont à moins de distance_max de la centerline
-        Distance calculée en mm physiques pour gérer l'anisotropie
+        Keeps only the mask voxels that are within distance_max of the centerline.
+        Distance computed in physical mm to handle anisotropy
         """
         
         from scipy.spatial import cKDTree
@@ -1126,9 +1121,8 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         distance_factor = 2.0 + (threshold_factor * 1.0)  # Entre 2.0 et 3.0
         distance_max_mm = rayon_estime * distance_factor
         
-        print(f"  Distance max autorisée: {distance_max_mm:.1f} mm (rayon {rayon_estime}mm × {distance_factor:.2f})")
+        print(f"Maximum allowed distance: {distance_max_mm:.1f} mm (radius {rayon_estime}mm × {distance_factor:.2f})")
         
-        # Récupérer les points centerline en RAS (coordonnées physiques)
         centerline_ras = []
         for i in range(centerline_points.GetNumberOfPoints()):
             point = centerline_points.GetPoint(i)
@@ -1136,20 +1130,16 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         
         centerline_ras = np.array(centerline_ras)
         
-        # Créer un arbre KD pour recherche rapide (en coordonnées RAS)
         tree = cKDTree(centerline_ras)
         
-        # Convertir les coordonnées IJK du masque en RAS
         ijkToRAS = vtk.vtkMatrix4x4()
         volumeInput.GetIJKToRASMatrix(ijkToRAS)
         
-        # Obtenir tous les voxels segmentés
         segmented_coords_ijk = np.argwhere(mask > 0)  # z, y, x
         
         if len(segmented_coords_ijk) == 0:
             return mask
         
-        # Convertir chaque voxel IJK en RAS
         segmented_coords_ras = []
         for z, y, x in segmented_coords_ijk:
             point_ijk = [x, y, z, 1.0]  # Attention à l'ordre : x, y, z pour VTK
@@ -1158,39 +1148,33 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             segmented_coords_ras.append(point_ras[:3])
         
         segmented_coords_ras = np.array(segmented_coords_ras)
-        
-        # Calculer les distances en mm physiques
         distances, _ = tree.query(segmented_coords_ras)
-        
-        # Identifier les voxels à garder
         valid_indices = distances <= distance_max_mm
-        
-        # Créer le nouveau masque
         filtered_mask = np.zeros_like(mask)
         valid_coords = segmented_coords_ijk[valid_indices]
         filtered_mask[valid_coords[:, 0], valid_coords[:, 1], valid_coords[:, 2]] = 1
         
         removed_voxels = len(segmented_coords_ijk) - np.sum(valid_indices)
         removed_percent = 100 * removed_voxels / len(segmented_coords_ijk) if len(segmented_coords_ijk) > 0 else 0
-        print(f"  Voxels conservés: {np.sum(valid_indices)}/{len(segmented_coords_ijk)} ({removed_percent:.1f}% éliminés)")
+        print(f" Voxels kept: {np.sum(valid_indices)}/{len(segmented_coords_ijk)} ({removed_percent:.1f}% eliminated)")
         
         return filtered_mask.astype(np.uint8)
     
     def detecterPointsParoi(self, noeudMarkups, volumeInput, rayon_estime=6):
         """
-        Detecte les points de la paroi a partir de la centerline.
-        Retourne les points de la paroi ou None si la detection echoue
+        Detects the wall points from the centerline.
+        Returns the wall points or None if detection fails
         """
         import numpy as np
         
         points = self.obtenirPointsDeLaCourbe(noeudMarkups)
         if points is None or points.GetNumberOfPoints() < 2:
-            print("Pas assez de points pour tracer la courbe.")
+            print("Not enough points to plot the curve.")
             return None
                 
         progressDialog = slicer.util.createProgressDialog(
-            windowTitle="Détection de la paroi",
-            labelText="Analyse en cours...",
+            windowTitle="Wall detection",
+            labelText="Analysis in progress...",
             maximum=points.GetNumberOfPoints(),
             cancelButton=True
         )
@@ -1202,12 +1186,12 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         spacing = volumeInput.GetSpacing()
         search_distance = min(20, rayon_estime / min(spacing) * 0.8) # Utiliser x fois le rayon pour la recherche de parois
 
-        print(f"Distance de recherche : {search_distance} voxels")
+        print(f"Search distance : {search_distance} voxels")
     
         try:
             for i in range(points.GetNumberOfPoints() - 1):
                 progressDialog.setValue(i)
-                progressDialog.setLabelText(f"Analyse du point {i+1}/{points.GetNumberOfPoints()-1}...")
+                progressDialog.setLabelText(f"Point analysis {i+1}/{points.GetNumberOfPoints()-1}...")
                 slicer.app.processEvents()
                 
                 if progressDialog.wasCanceled:
@@ -1253,7 +1237,7 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             progressDialog.close()
             
         if point_count == 0:
-            print("Aucun point de paroi détecté!")
+            print("No wall point detected!")
             return None
             
         return wall_points
@@ -1262,7 +1246,6 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
         import numpy as np 
         from scipy import ndimage
         
-        # Récupération du masque de la lésion
         lesion_mask = None 
         if lesionSegNode is not None: 
             labelmapVolumeNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLLabelMapVolumeNode")
@@ -1270,29 +1253,21 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
                 lesionSegNode, labelmapVolumeNode, lesionVolumeInput)
             lesion_mask = slicer.util.arrayFromVolume(labelmapVolumeNode)
             slicer.mrmlScene.RemoveNode(labelmapVolumeNode)
-            print("Masque de lésion chargé pour guider la segmentation de graisse")
+            print("Lesion mask loaded to guide fat segmentation")
         
-        # Récupération des données du volume et des espacements
         volume_array = slicer.util.arrayFromVolume(fatVolumeInput)
         spacing = fatVolumeInput.GetSpacing()
-        print(f"Espacement des voxels: {spacing[0]:.2f} x {spacing[1]:.2f} x {spacing[2]:.2f} mm")
-
-        
-        # Calculer le ratio d'anisotropie pour ajuster les opérations morphologiques
-        # Typiquement Z a un espacement plus grand
+        print(f"Voxel spacing: {spacing[0]:.2f} x {spacing[1]:.2f} x {spacing[2]:.2f} mm")
         xy_spacing = min(spacing[0], spacing[1])
         z_spacing = spacing[2]
         anisotropy_ratio = z_spacing / xy_spacing
         print(f"Ratio d'anisotropie Z/XY: {anisotropy_ratio:.2f}")
         
-        # Créer un masque vide
         mask = np.zeros_like(volume_array, dtype=np.uint8)
         
-        # Matrice de transformation RAS vers IJK
         rasToIJK = vtk.vtkMatrix4x4()
         fatVolumeInput.GetRASToIJKMatrix(rasToIJK)
 
-        # Collecte des points et intensités
         fat_intensities = []
         fat_points_ijk = []
 
@@ -1313,25 +1288,22 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
                 fat_points_ijk.append([z, y, x]) 
         
         if not fat_intensities:
-            print("Aucun point valide pour la segmentation de graisse") 
+            print("No valid point for fat segmentation.") 
             return False
 
         fat_intensities = np.array(fat_intensities)
         fat_points_ijk = np.array(fat_points_ijk)
 
-        # Analyse statistique 
         mean_intensity = np.mean(fat_intensities) 
         std_intensity = np.std(fat_intensities)
         
-        # Définir la plage d'intensité pour la graisse
         intensity_min = mean_intensity - 3.0 * std_intensity
         intensity_max = mean_intensity + 3.0 * std_intensity
         
-        print(f"Points de graisse détectés: {len(fat_intensities)}")
-        print(f"Intensité moyenne: {mean_intensity:.2f} ± {std_intensity:.2f}")
-        print(f"Plage d'intensités: [{intensity_min:.2f}, {intensity_max:.2f}]")
+        print(f"Detected fat points: {len(fat_intensities)}")
+        print(f"Mean intensity: {mean_intensity:.2f} ± {std_intensity:.2f}")
+        print(f"Intensity range: [{intensity_min:.2f}, {intensity_max:.2f}]")
 
-        # Créer un masque d'intensité
         intensity_mask = np.zeros_like(volume_array, dtype=np.uint8)
         if lesion_mask is not None: 
             intensity_mask[(volume_array >= intensity_min) & 
@@ -1341,25 +1313,20 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             intensity_mask[(volume_array >= intensity_min) &
                         (volume_array <= intensity_max)] = 1 
         
-        # Créer un élément structurant anisotrope pour respecter les proportions du volume
-        # Si Z a un espacement plus grand, nous voulons moins de dilatation en Z
         z_scale = max(1, int(round(anisotropy_ratio)))
         struct_size = (
             max(1, min(3, int(round(5 / spacing[2])))),  # Z (moins de dilatation si grand espacement)
-            3,  # Y
-            3   # X
+            3,                                           # Y
+            3                                            # X
         )
-        print(f"Taille de l'élément structurant anisotrope: {struct_size}")
+        print(f"Size of the anisotropic structuring element: {struct_size}")
         struct_aniso = np.ones(struct_size, dtype=np.uint8)
         
-        # Initialiser avec les points de l'utilisateur
         seed_mask = np.zeros_like(volume_array, dtype=np.uint8)
         for z, y, x in fat_points_ijk: 
             seed_mask[z, y, x] = 1
         
-        # Si on a une lésion, utiliser sa bordure comme source additionnelle
         if lesion_mask is not None:
-            # Créer une fine bordure autour de la lésion
             border_struct = ndimage.generate_binary_structure(3, 1)
             lesion_border = ndimage.binary_dilation(
                 lesion_mask > 0, 
@@ -1367,19 +1334,14 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
                 iterations=1
             ) & ~(lesion_mask > 0)
             
-            # Ajouter les points de la bordure qui correspondent à la graisse
             border_points = np.where(lesion_border & intensity_mask)
             for z, y, x in zip(*border_points):
                 seed_mask[z, y, x] = 1
         
-        # Region growing avec contrôle d'anisotropie
         fat_mask = seed_mask.copy()
         max_iterations = 25
         
-        # Croissance dans le plan XY et Z séparément
-        # D'abord dilatation dans le plan XY
         for iteration in range(max_iterations):
-            # Structure dans le plan XY uniquement
             struct_xy = np.zeros((1, 3, 3), dtype=np.uint8)
             struct_xy[0, 1, 1] = 1
             struct_xy[0, 0, 1] = 1
@@ -1387,38 +1349,29 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             struct_xy[0, 1, 0] = 1
             struct_xy[0, 1, 2] = 1
             
-            # Dilater dans le plan XY
             dilated_xy = ndimage.binary_dilation(fat_mask, structure=struct_xy)
             new_mask_xy = (dilated_xy & intensity_mask).astype(np.uint8)
             
-            # Si lésion présente, exclure
             if lesion_mask is not None:
                 new_mask_xy = new_mask_xy & (lesion_mask == 0)
             
-            # Si plus de croissance dans XY, on arrête
             if np.array_equal(new_mask_xy, fat_mask):
                 break
                 
             fat_mask = new_mask_xy
         
-        # Ensuite, croissance plus contrôlée en Z
-        # Moins d'itérations en Z pour limiter la propagation excessive
         z_iterations = max(3, int(max_iterations / anisotropy_ratio))
         print(f"Itérations en Z: {z_iterations}")
         
         for iteration in range(z_iterations):
-            # Structure en Z uniquement
             struct_z = np.zeros((3, 1, 1), dtype=np.uint8)
             struct_z[0, 0, 0] = 1
             struct_z[1, 0, 0] = 1
             struct_z[2, 0, 0] = 1
             
-            # Dilater en Z
             dilated_z = ndimage.binary_dilation(fat_mask, structure=struct_z)
             new_mask_z = (dilated_z & intensity_mask).astype(np.uint8)
             
-            # Contrainte plus stricte en Z pour éviter les pics
-            # Limiter la croissance en Z aux voxels qui ont un support dans le plan XY
             support_xy = ndimage.binary_dilation(
                 new_mask_z, 
                 structure=struct_xy,
@@ -1426,38 +1379,31 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             )
             new_mask_z = new_mask_z & support_xy
             
-            # Si lésion présente, exclure
             if lesion_mask is not None:
                 new_mask_z = new_mask_z & (lesion_mask == 0)
             
-            # Si plus de croissance en Z, on arrête
             if np.array_equal(new_mask_z, fat_mask):
                 break
                 
             fat_mask = new_mask_z
         
-        # Post-traitement pour lissage et amélioration de la forme
         
-        # 1. Fermeture pour combler les trous (adaptée à l'anisotropie)
         fat_mask = ndimage.binary_closing(
             fat_mask, 
             structure=struct_aniso,
             iterations=2
         ).astype(np.uint8)
         
-        # 2. Ouverture pour enlever les petites excroissances
         fat_mask = ndimage.binary_opening(
             fat_mask, 
             structure=struct_aniso,
             iterations=1
         ).astype(np.uint8)
         
-        # 3. Supprimer les petites régions isolées
         labeled_array, num_features = ndimage.label(fat_mask)
         if num_features > 1:
             sizes = np.bincount(labeled_array.ravel())[1:]
             
-            # Ne garder que les plus grandes régions
             threshold_size = max(10, int(np.max(sizes) * 0.1))
             mask_cleaned = np.zeros_like(fat_mask)
             
@@ -1467,34 +1413,27 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
                     
             fat_mask = mask_cleaned.astype(np.uint8)
         
-        # 4. Lissage final adapté à l'anisotropie
         fat_mask = ndimage.binary_closing(
             fat_mask, 
             structure=struct_aniso,
             iterations=1
         ).astype(np.uint8)
         
-        print(f"Nombre final de voxels segmentés: {np.sum(fat_mask)}")
+        print(f"Final number of segmented voxels: {np.sum(fat_mask)}")
         
-        # Vérifier si le segment "Creeping_Fat" existe déjà
         segmentId = segmentationNode.GetSegmentation().GetSegmentIdBySegmentName("Creeping_Fat")
         if not segmentId:
-            # Si le segment n'existe pas, le créer
             segmentId = segmentationNode.GetSegmentation().AddEmptySegment("Creeping_Fat")
-            # Définir la couleur du segment
             segment = segmentationNode.GetSegmentation().GetSegment(segmentId)
             segment.SetColor(1.0, 1.0, 0.0)  # Jaune
         else:
-            # Si le segment existe, juste mettre à jour
-            print("Mise à jour du segment Creeping_Fat existant")
+            print("Updating the existing Creeping_Fat segment")
         
-        # Créer un volume temporaire pour le labelmap
         labelmapVolumeNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLLabelMapVolumeNode")
         labelmapVolumeNode.SetName("TempLabelMap_Fat")
         slicer.util.updateVolumeFromArray(labelmapVolumeNode, fat_mask)
-        labelmapVolumeNode.CopyOrientation(fatVolumeInput)  # <-- Changé
+        labelmapVolumeNode.CopyOrientation(fatVolumeInput) 
         
-        # Importer dans le segment existant
         segmentIds = vtk.vtkStringArray()
         segmentIds.InsertNextValue(segmentId)
         slicer.modules.segmentations.logic().ImportLabelmapToSegmentationNode(
@@ -1503,7 +1442,6 @@ class CrohnBOOSTLogic(ScriptedLoadableModuleLogic):
             segmentIds
         )
         
-        # Nettoyer
         slicer.mrmlScene.RemoveNode(labelmapVolumeNode)
         
         return True
