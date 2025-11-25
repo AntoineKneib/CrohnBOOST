@@ -123,16 +123,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ---
 
-## 📊 Example Results
-
-| Centerline Drawing | Automatic Segmentation | Fat Segmentation |
-|:------------------:|:----------------------:|:----------------:|
-| ![Centerline](docs/images/centerline_example.png) | ![Lesion](docs/images/lesion_seg.png) | ![Fat](docs/images/fat_seg.png) |
-
-*Example: Segmentation of terminal ileum Crohn's disease with creeping fat*
-
----
-
 ### Parameter Guidelines
 
 | Parameter | Typical Range | Notes |
