@@ -169,7 +169,7 @@ If you use CrohnBOOST in your research, please cite:
   title        = {CrohnBOOST: Semi-Automated Segmentation Tool for Crohn's Disease MRI},
   year         = {2025},
   publisher    = {GitHub},
-  url          = {https://github.com/YourUsername/CrohnBOOST},
+  url          = {https://github.com/AntoineKneib/CrohnBOOST},
   institution  = {IADI Laboratory, INSERM, Université de Lorraine}
 }
 ```
