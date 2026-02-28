@@ -65,6 +65,22 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ---
 
+---
+
+## 📝 Changelog
+
+### 28/02/2026
+- **Volume display**: Added automatic volume calculation (cm³ + voxels) for both lesion and creeping fat segmentations
+- **Visibility toggles**: Added eye buttons to quickly switch between lesion and fat volumes in slice viewers
+- **Angular interpolation**: Improved wall detection by interpolating missing angular directions using periodic polar interpolation — reduces segmentation gaps
+- **Paint/Erase fix**: Fixed manual correction tools by using a dedicated hidden SegmentEditorWidget instead of accessing module internals — no more `QLayout` errors
+- **Segment naming fix**: Fixed imported segments being renamed to "FullVolumeLabelMap" — now correctly keeps "Paroi_Intestinale" name and color
+- **Removed auto module switch**: Segmentation no longer forces switch to Segment Editor module after completion
+- **Credits footer**: Added version and credits line at bottom of the UI
+- **AI segmentation (beta)**: Prepared one-click nnU-Net integration for automatic lesion segmentation (single fold, 3d_fullres)
+
+---
+
 ## 📦 Installation
 
 ### Prerequisites
