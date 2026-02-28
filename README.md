@@ -76,7 +76,7 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Segment naming fix**: Fixed imported segments being renamed to "FullVolumeLabelMap" — now correctly keeps "Paroi_Intestinale" name and color
 - **Removed auto module switch**: Segmentation no longer forces switch to Segment Editor module after completion
 - **Credits footer**: Added version and credits line at bottom of the UI
-- **AI segmentation (beta)**: Prepared one-click nnU-Net integration for automatic lesion segmentation (single fold, 3d_fullres)
+- COMING SOON: **AI segmentation (beta)**: Prepared one-click nnU-Net integration for automatic lesion segmentation (single fold, 3d_fullres)
 
 ---
 
