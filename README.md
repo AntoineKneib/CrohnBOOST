@@ -65,7 +65,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ---
 
----
 
 ## 📝 Changelog
 
