@@ -152,7 +152,7 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ### Step 3: Segment Creeping Fat
 
-1. **Select Fat Volume**: Choose your DIXON fat sequence (inputSelector2)
+1. **Select Fat Volume**: Choose your DIXON fat sequence
 2. **Place Fat Points**: Click `Place Fat Points` and add 3-5 points in the fat regions
 3. **Click `Segment Fat`**: Automatic fat segmentation excluding the lesion
 4. **Review**: Fat appears in yellow, lesion in orange
