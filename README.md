@@ -13,7 +13,7 @@ Developed at **IADI Laboratory, INSERM U1254** (Université de Lorraine, Nancy, 
 
 <video src="Resources/Demo_CrohnBOOST.mp4" width="100%" controls></video>
 
-*Full workflow demonstration: lesion segmentation, creeping fat, and AI inference*
+*Full workflow demonstration: lesion segmentation and creeping fat*
 
 </div>
 
