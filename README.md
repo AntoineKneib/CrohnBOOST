@@ -73,7 +73,7 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 ### 🤖 AI Segmentation (BETA)
 - **One-click inference**: Automatic lesion segmentation powered by nnU-Net
 - **Auto-install**: Dependencies and model downloaded automatically on first use
-- **CPU & GPU support**: Works on any hardware (GPU recommended for speed)
+- **Smart CPU/GPU acceleration**: Automatically detects high-end GPUs (≥6 GB VRAM) for fast inference; seamlessly falls back to CPU on standard workstations
 - **Seamless integration**: AI results compatible with manual correction tools
 - > ⚠️ **Note**: AI segmentation is provided as a convenience tool. For best results, we recommend using the **manual segmentation** workflow which allows fine-grained control over the segmentation parameters. AI inference may take **5-10 minutes on CPU** depending on your hardware.
 - > 📌 The AI model currently segments **intestinal lesions only**. Creeping fat segmentation still requires the manual seed-based workflow.
