@@ -68,6 +68,8 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Auto-install**: Dependencies and model downloaded automatically on first use
 - **CPU & GPU support**: Works on any hardware (GPU recommended for speed)
 - **Seamless integration**: AI results compatible with manual correction tools
+- > ⚠️ **Note**: AI segmentation is provided as a convenience tool. For best results, we recommend using the **manual segmentation** workflow which allows fine-grained control over the segmentation parameters. AI inference may take **5-10 minutes on CPU** depending on your hardware.
+
 
 ### 🧈 Creeping Fat Segmentation
 - **Seed-based growing**: Place control points in fat regions
