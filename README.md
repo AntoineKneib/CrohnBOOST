@@ -57,7 +57,8 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 ---
 
 ### 🟡 For Creeping Fat Segmentation
-- **DIXON FAT image (strongly recommended)**
+- T2 HASTE 
+- DIXON FAT image (strongly recommended)
 
 > ⚠️ For optimal creeping fat segmentation, the fat signal should appear hyperintense (bright).  
 
