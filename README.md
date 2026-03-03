@@ -34,14 +34,22 @@ Developed at **IADI Laboratory, INSERM** (Université de Lorraine, Nancy, France
 </tr>
 </table>
 
+### 🖥️ User Interface
 
+<div align="center">
 
+![CrohnBOOST UI](Resources/UI_CrohnBOOST.png)
+
+*CrohnBOOST interface in 3D Slicer — Manual Segmentation and AI Segmentation (BETA) tabs*
+
+</div>
 
 ## 📋 Overview
 
 CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Semi-automated intestinal wall segmentation** using centerline-guided region growing
 - **Creeping fat segmentation** guided by user-placed points
+- **AI-powered automatic segmentation** using deep learning (nnU-Net) — BETA
 - **Interactive refinement** with sensitivity/radius sliders and manual paint/erase tools 
 - **Segmentation export** for downstream quantitative analysis pipelines
 
@@ -54,6 +62,12 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Automatic wall detection**: Radial sampling with intensity-based wall detection
 - **Smart region growing**: Adaptive thresholding with spatial constraints
 - **Interactive adjustment**: Sensitivity and radius sliders with one-click update
+
+### 🤖 AI Segmentation (BETA)
+- **One-click inference**: Automatic lesion segmentation powered by nnU-Net
+- **Auto-install**: Dependencies and model downloaded automatically on first use
+- **CPU & GPU support**: Works on any hardware (GPU recommended for speed)
+- **Seamless integration**: AI results compatible with manual correction tools
 
 ### 🧈 Creeping Fat Segmentation
 - **Seed-based growing**: Place control points in fat regions
@@ -68,6 +82,11 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ## 📝 Changelog
 
+### 03/03/2026
+- **AI Segmentation (BETA)**: One-click nnU-Net deep learning segmentation with automatic dependency installation and model download
+- **Tabbed interface**: Separated Manual Segmentation and AI Segmentation into dedicated tabs
+- **GPU/CPU fallback**: AI inference runs on GPU when available, falls back to CPU automatically
+
 ### 28/02/2026
 - **Volume display**: Added automatic volume calculation (cm³ + voxels) for both lesion and creeping fat segmentations
 - **Visibility toggles**: Added eye buttons to quickly switch between lesion and fat volumes in slice viewers
@@ -76,7 +95,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Segment naming fix**: Fixed imported segments being renamed to "FullVolumeLabelMap" — now correctly keeps "Paroi_Intestinale" name and color
 - **Removed auto module switch**: Segmentation no longer forces switch to Segment Editor module after completion
 - **Credits footer**: Added version and credits line at bottom of the UI
-- COMING SOON: **AI segmentation (beta)**: Prepared one-click nnU-Net integration for automatic lesion segmentation (single fold, 3d_fullres)
 
 ---
 
@@ -88,6 +106,9 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
   - `scipy >= 1.7.0`
   - `numpy >= 1.21.0`
   - `vtk` (included with Slicer)
+- **For AI Segmentation** (auto-installed on first use):
+  - `PyTorch`
+  - `nnU-Net v2`
 
 ### Installation Steps
 
@@ -113,6 +134,7 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ### Step 2: Segment the Intestinal Lesion
 
+#### Option A: Manual Segmentation
 1. **Select Input Volume**: Choose your MRI sequence
 2. **Draw Centerline**: Click `Place Centerline` and trace through the lesion center
 3. **Adjust Parameters**:
@@ -121,12 +143,18 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 4. **Click `Segmentation`**: Automatic wall detection and segmentation
 5. **Refine**: Use the sensitivity slider and click `Apply` to update
 
+#### Option B: AI Segmentation (BETA)
+1. **Select Input Volume** in the Manual tab
+2. **Switch to AI Segmentation (BETA) tab**
+3. **Click `🧠 Run AI Segmentation`**
+4. Wait for automatic processing (~4 min CPU, ~1 min GPU)
+
 ### Step 3: Segment Creeping Fat
 
 1. **Select Fat Volume**: Choose your DIXON fat sequence (inputSelector2)
 2. **Place Fat Points**: Click `Place Fat Points` and add 3-5 points in the fat regions
 3. **Click `Segment Fat`**: Automatic fat segmentation excluding the lesion
-4. **Review**: Fat appears in yellow, lesion in beige
+4. **Review**: Fat appears in yellow, lesion in orange
 
 ### Step 4: Manual Refinement (Optional)
 - Use `Paint` and `Erase` tools for fine-tuning
@@ -165,6 +193,7 @@ Contributions are welcome! Please:
 - **User-dependent results**: Segmentation quality depends on anatomical knowledge and careful input placement
 - **Refinement often needed**: Provides a solid starting point that may benefit from manual correction with paint/erase tools
 - **Variable performance**: Results depend on lesion complexity, image artifacts, and user expertise
+- **AI model**: Currently single-fold inference — multi-fold ensemble planned for future versions
 
 ---
 
@@ -217,14 +246,14 @@ Université de Lorraine, Nancy, France
 
 ## 📊 Project Status
 
-![GitHub release](https://img.shields.io/github/v/release/YourUsername/CrohnBOOST)
-![License](https://img.shields.io/github/license/YourUsername/CrohnBOOST)
+![GitHub release](https://img.shields.io/github/v/release/AntoineKneib/CrohnBOOST)
+![License](https://img.shields.io/github/license/AntoineKneib/CrohnBOOST)
 ![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![3D Slicer](https://img.shields.io/badge/3D%20Slicer-5.6.2+-green.svg)
 
 **Status**: 🚧 Active Development  
 **Version**: 1.0.0-beta  
-**Last Updated**: November 2025
+**Last Updated**: March 2026
 
 ---
 If you find CrohnBOOST useful, please consider giving it a star! ⭐
