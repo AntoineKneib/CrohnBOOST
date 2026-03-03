@@ -222,7 +222,7 @@ If you use CrohnBOOST in your research, please cite:
 
 ---
 
-## 👤 Author
+## Author
 
 **Antoine KNEIB**  
 PhD Student in Medical Image Processing  
@@ -230,11 +230,10 @@ IADI Laboratory, INSERM U1254
 Université de Lorraine, Nancy, France
 
 📧 Contact: antoine.kneib@univ-lorraine.fr  
-🔗 LinkedIn: [https://www.linkedin.com/in/antoine-kneib-b173131b8/]  
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Supervisor**: [Dr. Freddy ODILLE and Dr. Valérie LAURENT]
 - **IADI Laboratory** for research support
@@ -244,20 +243,14 @@ Université de Lorraine, Nancy, France
 
 ---
 
-## 📊 Project Status
+## Project Status
 
 ![GitHub release](https://img.shields.io/github/v/release/AntoineKneib/CrohnBOOST)
 ![License](https://img.shields.io/github/license/AntoineKneib/CrohnBOOST)
 ![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![3D Slicer](https://img.shields.io/badge/3D%20Slicer-5.6.2+-green.svg)
 
-**Status**: 🚧 Active Development  
+**Status**: Active Development  
 **Version**: 1.0.0-beta  
 **Last Updated**: March 2026
 
----
-If you find CrohnBOOST useful, please consider giving it a star! ⭐
----
-<div align="center">
-<em>Made with ❤️ for the Crohn's disease research community</em>
-</div>
