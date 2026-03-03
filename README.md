@@ -64,7 +64,7 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 
 ---
 
-### 🔬 BETA : AI Segmentation Input
+### BETA : AI Segmentation Input
 The current AI model is **uni-modal** and was trained primarily on:
 - **Late gadolinium-enhanced T1 VIBE DIXON (WATER image)**
 
