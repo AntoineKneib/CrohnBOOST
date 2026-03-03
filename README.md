@@ -73,21 +73,21 @@ The current AI model is **uni-modal** and was trained primarily on:
 ---
 ## ✨ Features
 
-### 🎯 Lesion Segmentation
+### Lesion Segmentation
 - **Centerline-based approach**: Draw a simple centerline through the lesion
 - **Automatic wall detection**: Radial sampling with intensity-based wall detection
 - **Smart region growing**: Adaptive thresholding with spatial constraints
 - **Interactive adjustment**: Sensitivity and radius sliders with one-click update
 
-### 🧈 Creeping Fat Segmentation
+### Creeping Fat Segmentation
 - **Seed-based growing**: Place control points in fat regions
 - **Multi-sequence support**: Uses dedicated DIXON fat sequences
 - **Lesion-aware**: Automatically excludes intestinal wall from fat segmentation
 - **Anisotropic processing**: Respects voxel spacing for accurate 3D growth
 
-### 🛠️ Save 
+### Save 
 
-### 🤖 AI Segmentation (BETA)
+### AI Segmentation (BETA)
 - **One-click inference**: Automatic lesion segmentation powered by nnU-Net
 - **Auto-install**: Dependencies and model downloaded automatically on first use
 - **Smart CPU/GPU acceleration**: Automatically detects high-end GPUs (≥6 GB VRAM) for fast inference; seamlessly falls back to CPU on standard workstations
