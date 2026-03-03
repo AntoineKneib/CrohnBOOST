@@ -9,7 +9,21 @@
 
 Developed at **IADI Laboratory, INSERM U1254** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
-<table> <tr> <th>Lesion Segmentation</th> <th>Fat Segmentation</th> </tr> <tr> <td> <video src="https://github.com/user-attachments/assets/151bd105-a082-4a90-bd24-a495852087d6" width="100%" controls></video> </td> <td> <video src="https://github.com/user-attachments/assets/5e8ed6a4-881c-4174-a668-15cede0e4303" width="100%" controls></video> </td> </tr> <tr> <td align="center"><em>Centerline-guided automatic wall detection and region growing</em></td> <td align="center"><em>Seed-based region growing with lesion exclusion</em></td> </tr> </table>
+<table>
+<tr>
+<th>Workflow Demonstration</th>
+</tr>
+<tr>
+<td>
+
+<video src="https://github.com/user-attachments/assets/0ea49e46-f8b0-4770-bf60-a875b6236ca1" width="100%" controls></video>
+
+</td>
+</tr>
+<tr>
+<td align="center"><em>Lesion segmentation and creeping fat quantification</em></td>
+</tr>
+</table>
 
 ### 🖥️ User Interface
 
