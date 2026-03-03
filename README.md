@@ -43,7 +43,7 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ---
 
-## 🧲 Recommended MRI Sequences
+## Recommended MRI Sequences
 
 CrohnBOOST was primarily developed and validated using abdominal MRI acquired with the following sequences:
 
