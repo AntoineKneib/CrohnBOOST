@@ -49,7 +49,7 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 
 ### 🟠 For Lesion Segmentation
 - **T1-weighted VIBE DIXON (late gadolinium-enhanced) — WATER image (recommended)**
-- HASTE sequences can also be used
+- T2 HASTE sequences can also be used
 
 > 💡 The tool performs best when the intestinal wall appears relatively hyperintense compared to the lumen.  
 > In HASTE sequences, lesions may appear darker, but segmentation remains possible with proper parameter tuning.
