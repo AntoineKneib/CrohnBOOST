@@ -28,7 +28,7 @@ Developed at **IADI Laboratory, INSERM U1254** (Université de Lorraine, Nancy, 
 
 ![CrohnBOOST UI](Resources/UI_CrohnBOOST.png)
 
-*CrohnBOOST interface in 3D Slicer — Manual Segmentation and AI Segmentation (BETA) tabs*
+*CrohnBOOST interface in 3D Slicer — Manual Segmentation and NEW AI Segmentation (BETA) tabs*
 
 </div>
 
