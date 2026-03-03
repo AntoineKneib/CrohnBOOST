@@ -9,15 +9,21 @@
 
 Developed at **IADI Laboratory, INSERM U1254** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/AntoineKneib/CrohnBOOST/main/Resources/Demo_CrohnBOOST.mp4">
-    ▶ Watch full workflow demonstration
-  </a>
-</p>
+<table>
+<tr>
+<th>Full Workflow Demo</th>
+</tr>
+<tr>
+<td>
 
-<p align="center">
-<i>Lesion segmentation and creeping fat</i>
-</p>
+<video src="https://github.com/AntoineKneib/CrohnBOOST/releases/download/demo_video/Demo_CrohnBOOST.mp4" width="100%" controls></video>
+
+</td>
+</tr>
+<tr>
+<td align="center"><em>Lesion segmentation and creeping fat</em></td>
+</tr>
+</table>
 
 ### 🖥️ User Interface
 
