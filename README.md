@@ -70,6 +70,8 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Seamless integration**: AI results compatible with manual correction tools
 - > ⚠️ **Note**: AI segmentation is provided as a convenience tool. For best results, we recommend using the **manual segmentation** workflow which allows fine-grained control over the segmentation parameters. AI inference may take **5-10 minutes on CPU** depending on your hardware.
 - > 📌 The AI model currently segments **intestinal lesions only**. Creeping fat segmentation still requires the manual seed-based workflow.
+- > 🔬 The AI model is **uni-modal** (single MRI sequence input). For optimal results, we recommend using the **late gadolinium-enhanced T1 VIBE DIXON** sequence (water image) as input, as the model was trained primarily on this contrast.
+
 
 
 ### 🧈 Creeping Fat Segmentation
