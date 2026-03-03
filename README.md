@@ -9,30 +9,13 @@
 
 Developed at **IADI Laboratory, INSERM U1254** (Université de Lorraine, Nancy, France) as part of PhD research in medical image processing.
 
+<div align="center">
 
+<video src="Resources/Demo_CrohnBOOST.mp4" width="100%" controls></video>
 
-<table>
-<tr>
-<th>Lesion Segmentation</th>
-<th>Fat Segmentation</th>
-</tr>
-<tr>
-<td>
+*Full workflow demonstration: lesion segmentation, creeping fat, and AI inference*
 
-<video src="https://github.com/user-attachments/assets/151bd105-a082-4a90-bd24-a495852087d6" width="100%" controls></video>
-
-</td>
-<td>
-
-<video src="https://github.com/user-attachments/assets/5e8ed6a4-881c-4174-a668-15cede0e4303" width="100%" controls></video>
-
-</td>
-</tr>
-<tr>
-<td align="center"><em>Centerline-guided automatic wall detection and region growing</em></td>
-<td align="center"><em>Seed-based region growing with lesion exclusion</em></td>
-</tr>
-</table>
+</div>
 
 ### 🖥️ User Interface
 
