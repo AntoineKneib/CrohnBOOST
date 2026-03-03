@@ -20,9 +20,6 @@ Developed at **IADI Laboratory, INSERM U1254** (Université de Lorraine, Nancy, 
 
 </td>
 </tr>
-<tr>
-<td align="center"><em>Lesion segmentation and creeping fat quantification</em></td>
-</tr>
 </table>
 
 ### 🖥️ User Interface
