@@ -49,7 +49,6 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 
 ### 🟠 For Lesion Segmentation
 - **T1-weighted VIBE DIXON (late gadolinium-enhanced) — WATER image (recommended)**
-- T1 VIBE pre-contrast (water image)
 - HASTE sequences can also be used
 
 > 💡 The tool performs best when the intestinal wall appears relatively hyperintense compared to the lumen.  
@@ -61,11 +60,10 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 - **DIXON FAT image (strongly recommended)**
 
 > ⚠️ For optimal creeping fat segmentation, the fat signal should appear hyperintense (bright).  
-> Using a water image for fat segmentation is not recommended.
 
 ---
 
-### 🔬 AI Segmentation Input
+### 🔬 BETA : AI Segmentation Input
 The current AI model is **uni-modal** and was trained primarily on:
 - **Late gadolinium-enhanced T1 VIBE DIXON (WATER image)**
 
