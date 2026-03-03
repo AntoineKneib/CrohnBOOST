@@ -194,6 +194,18 @@ The current AI model is **uni-modal** and was trained primarily on:
 
 ---
 
+## Support & Feedback
+
+If you encounter any issue, unexpected behavior, or installation problem, please do not hesitate to contact us.
+
+You can:
+- Open an issue on this GitHub repository
+- Or contact the author directly via email
+
+We actively welcome feedback to improve CrohnBOOST.
+
+---
+
 ## 🐛 Known Limitations
 
 - **Manual user input required**: Not fully automatic - requires centerline drawing and seed point placement
