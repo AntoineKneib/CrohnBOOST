@@ -48,8 +48,8 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 CrohnBOOST was primarily developed and validated using abdominal MRI acquired with the following sequences:
 
 ### 🟠 For Lesion Segmentation
-- **T1-weighted VIBE DIXON (late gadolinium-enhanced) — WATER image (recommended)**
-- T2 HASTE sequences can also be used
+- T1-weighted VIBE DIXON (late gadolinium-enhanced) — WATER image 
+- T2 HASTE sequences
 
 > 💡 The tool performs best when the intestinal wall appears relatively hyperintense compared to the lumen.  
 > In HASTE sequences, lesions may appear darker, but segmentation remains possible with proper parameter tuning.
@@ -57,7 +57,7 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 ---
 
 ### 🟡 For Creeping Fat Segmentation
-- T2 HASTE 
+- T2 HASTE sequences can also be used
 - DIXON FAT image (strongly recommended)
 
 > ⚠️ For optimal creeping fat segmentation, the fat signal should appear hyperintense (bright).  
