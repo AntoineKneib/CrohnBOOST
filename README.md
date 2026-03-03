@@ -42,6 +42,36 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **AI-powered automatic segmentation** using deep learning (nnU-Net) — BETA
 
 ---
+
+## 🧲 Recommended MRI Sequences
+
+CrohnBOOST was primarily developed and validated using abdominal MRI acquired with the following sequences:
+
+### 🟠 For Lesion Segmentation
+- **T1-weighted VIBE DIXON (late gadolinium-enhanced) — WATER image (recommended)**
+- T1 VIBE pre-contrast (water image)
+- HASTE sequences can also be used
+
+> 💡 The tool performs best when the intestinal wall appears relatively hyperintense compared to the lumen.  
+> In HASTE sequences, lesions may appear darker, but segmentation remains possible with proper parameter tuning.
+
+---
+
+### 🟡 For Creeping Fat Segmentation
+- **DIXON FAT image (strongly recommended)**
+
+> ⚠️ For optimal creeping fat segmentation, the fat signal should appear hyperintense (bright).  
+> Using a water image for fat segmentation is not recommended.
+
+---
+
+### 🔬 AI Segmentation Input
+The current AI model is **uni-modal** and was trained primarily on:
+- **Late gadolinium-enhanced T1 VIBE DIXON (WATER image)**
+
+Using other contrasts may reduce segmentation performance.
+
+---
 ## ✨ Features
 
 ### 🎯 Lesion Segmentation
