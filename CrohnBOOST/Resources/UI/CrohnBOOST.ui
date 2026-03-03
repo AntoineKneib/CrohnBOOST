@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CrohnBOOST</class>
+ <widget class="qMRMLWidget" name="CrohnBOOST">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>655</width>
+    <height>565</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+    <widget class="QLabel" name="logoLabel">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>60</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="mainTabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+
+     <!-- ==================== TAB 1: Manual ==================== -->
+     <widget class="QWidget" name="manualTab">
+      <attribute name="title">
+       <string>Manual Segmentation</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="manualTabLayout">
+       <item>
+        <widget class="ctkCollapsibleButton" name="inputsCollapsibleButton">
+         <property name="text">
+          <string>Inputs</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_inputs">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Input volume :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="qMRMLNodeComboBox" name="inputSelector">
+            <property name="toolTip">
+             <string>Pick the input to the algorithm.</string>
+            </property>
+            <property name="nodeTypes">
+             <stringlist notr="true">
+              <string>vtkMRMLScalarVolumeNode</string>
+             </stringlist>
+            </property>
+            <property name="showChildNodeTypes">
+             <bool>false</bool>
+            </property>
+            <property name="addEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="removeEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="SlicerParameterName" stdset="0">
+             <string>inputVolume</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="showVolumeButton">
+            <property name="text">
+             <string>👁</string>
+            </property>
+            <property name="toolTip">
+             <string>Show this volume in slice viewers</string>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Input fat </string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="qMRMLNodeComboBox" name="inputSelector2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="nodeTypes">
+             <stringlist notr="true">
+              <string>vtkMRMLScalarVolumeNode</string>
+             </stringlist>
+            </property>
+            <property name="showChildNodeTypes">
+             <bool>false</bool>
+            </property>
+            <property name="hideChildNodeTypes">
+             <stringlist notr="true"/>
+            </property>
+            <property name="addEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="removeEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="interactionNodeSingletonTag">
+             <string notr="true"/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="showFatButton">
+            <property name="text">
+             <string>👁</string>
+            </property>
+            <property name="toolTip">
+             <string>Show fat volume in slice viewers</string>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Draw centerline :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPushButton" name="centerlineButton">
+            <property name="text">
+             <string>Centerline curve</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="ctkCollapsibleButton" name="outputsCollapsibleButton">
+         <property name="text">
+          <string>Lesion Segmentation</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_4">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Radius estimation :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSlider" name="radiusSlider">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Apply :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="segmentButton">
+            <property name="text">
+             <string>Segmentation</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_vol_lesion">
+            <property name="text">
+             <string>Lesion volume :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="volumeLesionLabel">
+            <property name="text">
+             <string>—</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="ctkCollapsibleButton" name="CollapsibleButton">
+         <property name="text">
+          <string>Creeping fat Segmentation</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="test" stdset="0">
+             <string>Add points:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="fatPointsButton">
+            <property name="text">
+             <string>Place Points</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Apply:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="segmentFatButton">
+            <property name="text">
+             <string>Segment Fat</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_vol_fat">
+            <property name="text">
+             <string>Fat volume :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="volumeFatLabel">
+            <property name="text">
+             <string>—</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="ctkCollapsibleButton" name="advancedCollapsibleButton">
+         <property name="text">
+          <string>Corrections</string>
+         </property>
+         <property name="collapsed">
+          <bool>false</bool>
+         </property>
+         <layout class="QFormLayout" name="formLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Segmentation sensibility</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSlider" name="horizontalSlider">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="applySegmentationButton">
+            <property name="text">
+             <string>Apply</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Modify :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="qMRMLNodeComboBox" name="modifySelector">
+            <property name="nodeTypes">
+             <stringlist notr="true">
+              <string>vtkMRMLScalarVolumeNode</string>
+             </stringlist>
+            </property>
+            <property name="showChildNodeTypes">
+             <bool>false</bool>
+            </property>
+            <property name="hideChildNodeTypes">
+             <stringlist notr="true"/>
+            </property>
+            <property name="addEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="removeEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="interactionNodeSingletonTag">
+             <string notr="true"/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Paint : </string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="paintButton">
+            <property name="text">
+             <string>Paint Brush</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Erase :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QPushButton" name="eraseButton">
+            <property name="text">
+             <string>Erase Brush</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="savesegButton">
+         <property name="text">
+          <string>Save Segmentation</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="manualSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+
+     <!-- ==================== TAB 2: AI (BETA) ==================== -->
+     <widget class="QWidget" name="aiTab">
+      <attribute name="title">
+       <string> AI Segmentation (BETA)</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="aiTabLayout">
+       <item>
+        <widget class="QLabel" name="label_ai_info">
+         <property name="text">
+          <string>Automatic lesion segmentation using deep learning (nnU-Net).
+Select your input volume in the Manual tab, then click Run.
+Requires internet on first use to download model (~900 MB).</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string>color: #AAAAAA; font-size: 11px; font-style: italic; padding: 8px;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="aiSegmentButton">
+         <property name="text">
+          <string>🧠 Run AI Segmentation</string>
+         </property>
+         <property name="toolTip">
+          <string>Run nnU-Net deep learning segmentation on the selected input volume</string>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="aiProgressBar">
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="visible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="aiStatusLabel">
+         <property name="text">
+          <string></string>
+         </property>
+         <property name="styleSheet">
+          <string>color: #AAAAAA; font-size: 11px; font-style: italic; padding: 4px;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="aiSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="creditsLabel">
+     <property name="text">
+      <string>CrohnBOOST v1.0 — Antoine KNEIB, IADI-INSERM U1254, Université de Lorraine</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="styleSheet">
+      <string>color: #888888; font-size: 10px; padding: 4px;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ctkCollapsibleButton</class>
+   <extends>QWidget</extends>
+   <header>ctkCollapsibleButton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>qMRMLNodeComboBox</class>
+   <extends>QWidget</extends>
+   <header>qMRMLNodeComboBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>qMRMLWidget</class>
+   <extends>QWidget</extends>
+   <header>qMRMLWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>CrohnBOOST</sender>
+   <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
+   <receiver>inputSelector</receiver>
+   <slot>setMRMLScene(vtkMRMLScene*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>122</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>248</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
