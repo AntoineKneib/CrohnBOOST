@@ -166,27 +166,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ---
 
-### Parameter Guidelines
-
-| Parameter | Typical Range | Notes |
-|-----------|---------------|-------|
-| Intestinal Radius | 4-8mm | Smaller for strictures, larger for dilated bowel |
-| Sensitivity (lesion) | 40-60% | Lower = conservative, Higher = aggressive |
-| Fat seed points | 3-10 points | More points = better coverage |
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch 
-3. Commit your changes 
-4. Push to the branch 
-5. Open a Pull Request
-
----
-
 ## 🐛 Known Limitations
 
 - **Manual user input required**: Not fully automatic - requires centerline drawing and seed point placement
