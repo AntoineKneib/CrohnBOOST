@@ -63,17 +63,6 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - **Smart region growing**: Adaptive thresholding with spatial constraints
 - **Interactive adjustment**: Sensitivity and radius sliders with one-click update
 
-### 🤖 AI Segmentation (BETA)
-- **One-click inference**: Automatic lesion segmentation powered by nnU-Net
-- **Auto-install**: Dependencies and model downloaded automatically on first use
-- **CPU & GPU support**: Works on any hardware (GPU recommended for speed)
-- **Seamless integration**: AI results compatible with manual correction tools
-- > ⚠️ **Note**: AI segmentation is provided as a convenience tool. For best results, we recommend using the **manual segmentation** workflow which allows fine-grained control over the segmentation parameters. AI inference may take **5-10 minutes on CPU** depending on your hardware.
-- > 📌 The AI model currently segments **intestinal lesions only**. Creeping fat segmentation still requires the manual seed-based workflow.
-- > 🔬 The AI model is **uni-modal** (single MRI sequence input). For optimal results, we recommend using the **late gadolinium-enhanced T1 VIBE DIXON** sequence (water image) as input, as the model was trained primarily on this contrast.
-
-
-
 ### 🧈 Creeping Fat Segmentation
 - **Seed-based growing**: Place control points in fat regions
 - **Multi-sequence support**: Uses dedicated DIXON fat sequences
@@ -82,6 +71,14 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 
 ### 🛠️ Save 
 
+### 🤖 AI Segmentation (BETA)
+- **One-click inference**: Automatic lesion segmentation powered by nnU-Net
+- **Auto-install**: Dependencies and model downloaded automatically on first use
+- **CPU & GPU support**: Works on any hardware (GPU recommended for speed)
+- **Seamless integration**: AI results compatible with manual correction tools
+- > ⚠️ **Note**: AI segmentation is provided as a convenience tool. For best results, we recommend using the **manual segmentation** workflow which allows fine-grained control over the segmentation parameters. AI inference may take **5-10 minutes on CPU** depending on your hardware.
+- > 📌 The AI model currently segments **intestinal lesions only**. Creeping fat segmentation still requires the manual seed-based workflow.
+- > 🔬 The AI model is **uni-modal** (single MRI sequence input). For optimal results, we recommend using the **late gadolinium-enhanced T1 VIBE DIXON** sequence (water image) as input, as the model was trained primarily on this contrast.
 ---
 
 
