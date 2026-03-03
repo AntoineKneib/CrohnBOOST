@@ -80,6 +80,17 @@ CrohnBOOST provides radiologists and researchers with advanced tools for:
 - > 🔬 The AI model is **uni-modal** (single MRI sequence input). For optimal results, we recommend using the **late gadolinium-enhanced T1 VIBE DIXON** sequence (water image) as input, as the model was trained primarily on this contrast.
 ---
 
+### Performance Guidelines
+
+| Hardware | Approx. Inference Time | Notes |
+|----------|----------------------|-------|
+| Modern CPU (i5-14600, Ryzen 7) | ~4 min | **Recommended** for most workstations |
+| High-end GPU (RTX 2060+, ≥6 GB VRAM) | ~1-2 min | Automatically used when detected |
+| Low-end GPU (T400, Quadro P620) | ~8 min | Slower than CPU — automatically skipped |
+
+> 💡 CrohnBOOST automatically selects the fastest device. GPUs with less than 6 GB VRAM are skipped in favor of CPU, as nnU-Net inference is often faster on modern multi-core CPUs than on entry-level GPUs.
+
+---
 
 ## 📝 Changelog
 
