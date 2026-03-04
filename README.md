@@ -109,7 +109,7 @@ The current AI model is uni-modal and lesion segmentation only, and was trained 
 
 ---
 
-## 📝 Changelog
+## Changelog
 
 ### 03/03/2026
 - **AI Segmentation (BETA)**: One-click nnU-Net deep learning segmentation with automatic dependency installation and model download
