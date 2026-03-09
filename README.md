@@ -222,11 +222,11 @@ We actively welcome feedback to improve CrohnBOOST.
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
-
 ## 📚 Citation
 
 If you use CrohnBOOST in your research, please cite:
 
+```bibtex
 @article{kneib2026crohnboost,
   title   = {Semi-Automatic Assessment of Crohn's Disease Activity by Combined Analysis of Bowel Lesions and Creeping Fat},
   author  = {Kneib, Antoine and Lemore, Astrée and Hossu, Gabriella and Peyrin-Biroulet, Laurent and Laurent, Valérie and Odille, Freddy and others},
