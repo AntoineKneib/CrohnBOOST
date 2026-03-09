@@ -227,14 +227,12 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 If you use CrohnBOOST in your research, please cite:
 
-```bibtex
-@software{crohnboost2025,
-  author       = {Kneib, Antoine},
-  title        = {CrohnBOOST: Semi-Automated Segmentation Tool for Crohn's Disease MRI},
-  year         = {2025},
-  publisher    = {GitHub},
-  url          = {https://github.com/AntoineKneib/CrohnBOOST},
-  institution  = {IADI Laboratory, INSERM, Université de Lorraine}
+@article{kneib2026crohnboost,
+  title   = {Semi-Automatic Assessment of Crohn's Disease Activity by Combined Analysis of Bowel Lesions and Creeping Fat},
+  author  = {Kneib, Antoine and Lemore, Astrée and Hossu, Gabriella and Peyrin-Biroulet, Laurent and Laurent, Valérie and Odille, Freddy and others},
+  journal = {Magnetic Resonance in Medicine},
+  year    = {2026},
+  doi     = {10.1002/mrm.70328}
 }
 ```
 
