@@ -52,7 +52,7 @@ CrohnBOOST was primarily developed and validated using abdominal MRI acquired wi
 - T2 HASTE sequences
 
 > 💡 The tool performs best when the intestinal wall appears relatively hyperintense compared to the lumen.  
-> In HASTE sequences, lesions may appear darker, but segmentation remains possible with proper parameter tuning.
+> In HASTE sequences, lesions may appear darker, but segmentation remains possible. 
 
 ---
 
