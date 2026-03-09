@@ -105,7 +105,7 @@ The current AI model is uni-modal and lesion segmentation only, and was trained 
 | High-end GPU (RTX 2060+, ≥6 GB VRAM) | ~1-2 min | Automatically used when detected |
 | Low-end GPU (T400, Quadro P620) | ~8 min | Slower than CPU — automatically skipped |
 
-> 💡 CrohnBOOST automatically selects the fastest device. GPUs with less than 6 GB VRAM are skipped in favor of CPU, as nnU-Net inference is often faster on modern multi-core CPUs than on entry-level GPUs.
+> 💡 CrohnBOOST automatically selects the fastest device. GPUs with less than 6 GB VRAM are skipped in favor of CPU, as inference is often faster on modern multi-core CPUs than on entry-level GPUs.
 
 ---
 
