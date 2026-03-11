@@ -111,9 +111,9 @@ The current AI model is uni-modal and lesion segmentation only, and was trained 
 
 ## Changelog
 ### 11/03/2026
-Improved segmentation robustness: Reduced overflow on curved/looping intestinal segments and adjacent structures
-Adaptive intensity barrier: Prevents leaking through dark regions across all MRI sequences
-Cleaner wall detection: Automatic rejection of false wall points on distant structures
+- **Improved segmentation robustness**: Reduced overflow on curved/looping intestinal segments and adjacent structures
+- **Adaptive intensity barrier**: Prevents leaking through dark regions across all MRI sequences
+- **Cleaner wall detection**: Automatic rejection of false wall points on distant structures
 
 ### 03/03/2026
 - **AI Segmentation (BETA)**: One-click nnU-Net deep learning segmentation with automatic dependency installation and model download
